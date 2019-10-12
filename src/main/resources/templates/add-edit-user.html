@@ -9,7 +9,7 @@
     <div class="card">
         <div class="card-body">
             <div class="col-md-10">
-                <form action="#" th:action="@{/add}" th:object="${user}" method="post">
+                <form action="#" th:action="@{/add}" th:object="${usr}" method="post">
                     <div class="row">
                         <div class="form-group col-md-8">
                             <label for="username" class="col-form-label">Username</label>
@@ -56,7 +56,7 @@
                             <label for="roles">Roles</label>
                             <select th:field="*{roles}" multiple class="form-control" id="roles" required>
                                 <option th:each="role : ${user_roles}"
-                                        th:value="${role.id}" th:text="${role.name}">Role
+                                        th:value="${role.id}" th:text="${role.name}">
                                 </option>
                             </select>
                         </div>

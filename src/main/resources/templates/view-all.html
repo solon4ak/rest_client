@@ -7,7 +7,7 @@
     <div class="container my-5">
     <div class="card">
         <div class="card-body">
-            <div th:switch="${#arrays.length(users)}">
+            <div th:switch="${#arrays.length(user_list)}">
                 <div>
                     <a class="btn btn-link" href="/edit">
                         Add User
@@ -30,33 +30,33 @@
                             </tr>
                             </thead>
                             <tbody>
-                            <tr th:each="user : ${users}">
-                                <td th:text="${user.id}"></td>
+                            <tr th:each="u : ${user_list}" th:object="${u}">
+                                <td th:text="*{id}"></td>
                                                 
-                                <td th:text="${user.username}"></td>
+                                <td th:text="*{username}"></td>
                                                 
-                                <td th:text="${user.firstName}"></td>
+                                <td th:text="*{firstName}"></td>
                                                 
-                                <td th:text="${user.lastName}"></td>
+                                <td th:text="*{lastName}"></td>
                                 <td>
-                                    <th:block th:each="role : ${user.roles}">
+                                    <th:block th:each="role : *{roles}">
                                         <span th:text="${role.name.toLowerCase()}"></span>
                                         <br/>
                                     </th:block>
                                 </td>
                                                 
                                 <td>
-                                    <a class="btn btn-link" th:href="@{view/{id}(id=${user.id})}">
+                                    <a class="btn btn-link" th:href="@{view/{id}(id=*{id})}">
                                         View
                                     </a>
                                 </td>
                                 <td>
-                                    <a class="btn btn-link" th:href="@{edit/{id}(id=${user.id})}">
+                                    <a class="btn btn-link" th:href="@{edit/{id}(id=*{id})}">
                                         Edit
                                     </a>
                                 </td>
                                 <td>
-                                    <a class="btn btn-link" th:href="@{delete/{id}(id=${user.id})}">
+                                    <a class="btn btn-link" th:href="@{delete/{id}(id=*{id})}">
                                         Delete
                                     </a>                 
                                 </td>

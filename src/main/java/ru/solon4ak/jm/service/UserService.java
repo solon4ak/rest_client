@@ -1,11 +1,11 @@
 package ru.solon4ak.jm.service;
 
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.stereotype.Service;
+import org.springframework.stereotype.Component;
 import org.springframework.web.client.RestTemplate;
 import ru.solon4ak.jm.model.User;
 
-@Service
+@Component
 public class UserService {
 
     private static final String url = "http://localhost:8080/rest";

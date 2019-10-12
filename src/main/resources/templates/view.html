@@ -7,7 +7,7 @@
     <h1>View User</h1>
 
     <div class="card">
-        <table class="table" th:object="${user}">
+        <table class="table" th:object="${usr}">
             <tbody>
             <tr>
                 <th scope="row">Id</th>
@@ -39,12 +39,12 @@
             </tr>
             <tr>
                 <th scope="row">Birthday</th>
-                <td th:text="${#calendars.format(user.birthDate, 'dd-MMM-yyyy')}"></td>
+                <td th:text="${#calendars.format(usr.birthDate, 'dd-MM-yyyy')}"></td>
             </tr>
             <tr>
                 <th scope="row">Roles</th>
                 <td>
-                    <th:block th:each="role : ${user.roles}">
+                    <th:block th:each="role : ${usr.roles}">
                         <span th:text="${role.name}"></span>
                         <br/>
                     </th:block>

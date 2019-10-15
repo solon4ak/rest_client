@@ -9,18 +9,18 @@
     <div class="card">
         <div class="card-body">
             <div class="col-md-10">
-                <form action="#" method="post" th:action="@{/add}" th:object="${form}">
+                <form action="#" method="post" th:action="@{/add}" th:object="${usr}">
                     <div class="row">
                         <div class="form-group col-md-8">
                             <label class="col-form-label" for="username">Username</label>
                             <input class="form-control" id="username" placeholder="Username"
-                                   required th:field="*{userName}"
+                                   required th:field="*{username}"
                                    th:if="*{id} != null ? 'readonly' : ''" type="text"/>
                         </div>
                         <div class="form-group col-md-8">
                             <label class="col-form-label" for="password">Password</label>
                             <input class="form-control" id="password" placeholder="Password"
-                                   required th:field="*{userPassword}" type="password"/>
+                                   required th:field="*{password}" type="password"/>
                         </div>
                         <div class="form-group col-md-8">
                             <label class="col-form-label" for="firstName">First Name</label>
@@ -50,13 +50,13 @@
                         <div class="form-group col-md-8">
                             <label class="col-form-label" for="birthday">Birth date</label>
                             <input class="form-control" id="birthday" required
-                                   th:field="*{birthday}" type="date"/>
+                                   th:field="*{birthDate}" type="date"/>
                         </div>
                         <div class="form-group col-md-8">
                             <label for="roles">Roles</label>
-                            <select th:field="*{roles}" multiple class="form-control" id="roles" required>
+                            <select name="roles" multiple class="form-control" id="roles" required>
                                 <option th:each="role : ${user_roles}"
-                                        th:value="${role}" th:text="${role}">Role
+                                        th:value="${role.id}" th:text="${role.name}">Role
                                 </option>
                             </select>
                         </div>

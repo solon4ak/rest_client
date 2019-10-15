@@ -5,9 +5,9 @@ import org.springframework.stereotype.Component;
 import org.springframework.web.client.RestTemplate;
 import ru.solon4ak.jm.model.Role;
 
-import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
+import java.util.Objects;
 
 @Component
 public class RoleService {
@@ -21,8 +21,12 @@ public class RoleService {
         this.restTemplate = restTemplate;
     }
 
-    public Role[] getAllUserRoles() {
-        return restTemplate.getForObject(url + "/roles", Role[].class);
+//    public Role[] getAllUserRoles() {
+//        return restTemplate.getForObject(url + "/roles", Role[].class);
+//    }
+
+    public List<Role> getAllUserRoles() {
+        return Arrays.asList(Objects.requireNonNull(restTemplate.getForObject(url + "/roles", Role[].class)));
     }
 
 

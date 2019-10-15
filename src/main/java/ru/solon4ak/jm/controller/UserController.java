@@ -2,6 +2,7 @@ package ru.solon4ak.jm.controller;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.format.annotation.DateTimeFormat;
 import org.springframework.stereotype.Controller;
@@ -82,50 +83,33 @@ public class UserController {
 
     @PostMapping("add")
     public String createOrUpdateUser(@RequestParam Long id, Form form) {
-        User user;
-        if (id == null) {
-            user = new User();
-            user.setUsername(form.getUserName());
-            user.setPassword(form.getUserPassword());
-            user.setFirstName(form.getFirstName());
-            user.setLastName(form.getLastName());
-            user.setEmail(form.getEmail());
-            user.setAddress(form.getAddress());
-            user.setPhoneNumber(form.getPhoneNumber());
-            user.setBirthDate(form.getBirthday());
+        User user = new User();
 
-            Set<Role> userRoles = new HashSet<>();
-            for (String s : form.getRoles()) {
-                for(Role role : roleService.getAllUserRoles()) {
-                    if (s.equals(role.getName())) {
-                        userRoles.add(role);
-                    }
+        user.setUsername(form.getUserName());
+        user.setPassword(form.getUserPassword());
+        user.setFirstName(form.getFirstName());
+        user.setLastName(form.getLastName());
+        user.setEmail(form.getEmail());
+        user.setAddress(form.getAddress());
+        user.setPhoneNumber(form.getPhoneNumber());
+        user.setBirthDate(form.getBirthday());
+
+        Set<Role> userRoles = new HashSet<>();
+        for (String s : form.getRoles()) {
+            for(Role role : roleService.getAllUserRoles()) {
+                if (s.equals(role.getName())) {
+                    userRoles.add(role);
                 }
             }
-            user.setRoles(userRoles);
+        }
+        user.setRoles(userRoles);
+
+        if (id == null) {
             userService.createUser(user);
         } else {
-            user = userService.getUser(id);
-//            BeanUtils.copyProperties(user, aUser, "id");
-//            user.setUsername(form.getUserName());
-            user.setPassword(form.getUserPassword());
-            user.setFirstName(form.getFirstName());
-            user.setLastName(form.getLastName());
-            user.setEmail(form.getEmail());
-            user.setAddress(form.getAddress());
-            user.setPhoneNumber(form.getPhoneNumber());
-            user.setBirthDate(form.getBirthday());
-
-            Set<Role> userRoles = new HashSet<>();
-            for (String s : form.getRoles()) {
-                for(Role role : roleService.getAllUserRoles()) {
-                    if (s.equals(role.getName())) {
-                        userRoles.add(role);
-                    }
-                }
-            }
-            user.setRoles(userRoles);
-            userService.updateUser(user);
+            User aUser = userService.getUser(id);
+            BeanUtils.copyProperties(user, aUser, "id");
+            userService.updateUser(aUser);
         }
         return "redirect:/";
     }
